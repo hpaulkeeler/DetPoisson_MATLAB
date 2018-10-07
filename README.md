@@ -1,6 +1,6 @@
 # DetPoisson_MATLAB
 
-A collection of MATLAB m. files used to for results in the paper  by Blaszczyszyn and Keeler[1]. In particular, they create and fit determinantally-thinned Poisson point process to dependently-thinned point processes such as Matern hard-core point processes; for details see[1]. The fitting method is based on that of Kulesza and Taskar[2].
+A collection of MATLAB m. files used for the results in the paper  by Blaszczyszyn and Keeler[1]. In particular, they create and fit determinantally-thinned Poisson point process to dependently-thinned point processes such as Matern hard-core point processes; for details see[1]. The fitting method is based on that of Kulesza and Taskar[2].
 
 Run the file DemoDetPoisson.m for a demonstration of a simulating a determinantally-thinned Poisson point process.
 

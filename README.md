@@ -4,7 +4,7 @@ A collection of MATLAB m. files used to for results in the paper  by Blaszczyszy
 
 Run the file DemoDetPoisson.m for a demonstration of a simulating a determinantally-thinned Poisson point process.
 
-To reproduce the results in the paper by Blaszczyszyn and Keeler,[1], first run SubsetGenerate.m, then SubsetDetPoissonFit.m, and finally SubsetDetPoissonGenerate.m. The first two files will create .mat files locally for storing variables and data. 
+To reproduce the results in the paper by Blaszczyszyn and Keeler[1], first run SubsetGenerate.m, then SubsetDetPoissonFit.m, and finally SubsetDetPoissonGenerate.m. The first two files will create .mat files locally for storing variables and data. 
 
 To reproduce the exact same results in the paper[2], set the random seed to one (ie add the line:rng(1)) in the files SubsetGenerate.m and SubsetDetPoissonFit.m. 
 

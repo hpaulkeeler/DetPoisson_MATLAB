@@ -1,7 +1,11 @@
-
-% This file creates a determinantally-thinned Poisson point process.
-% For details; see the paper by Blaszczyszyn and Keeler[1].
+% Randomly simulates a determinantally-thinned Poisson point process. 
 %
+% A determinantally-thinned Poisson point process is essentially a discrete
+% determinantal point process whose underlying state space is a single 
+% realization of a Poisson
+% point process defined on some bounded continuous space. 
+%
+% For more details, see the paper by Blaszczyszyn and Keeler[1].
 %
 % Author: H.P. Keeler, Inria/ENS, Paris, and University of Melbourne,
 % Melbourne, 2018.
@@ -40,7 +44,7 @@ yy=xDelta*(rand(numbPoints,1))+yMin;%y coordinates of Poisson points
 xxDiff=bsxfun(@minus,xx,xx'); yyDiff=bsxfun(@minus,yy,yy');
 rrDiffSquared=(xxDiff.^2+yyDiff.^2);
 if choiceKernel==1
-    %%Gaussian kernel
+    %%Gaussian/squared exponential kernel
     L=lambda*exp(-(rrDiffSquared)/sigma^2);
 elseif choiceKernel==2    
     %%Cauchy kernel
@@ -76,11 +80,11 @@ for ii=numbPointsDPP:-1:1
     
     %Choose a vector to remove
     jj=find(spaceV(indexDPP(ii),:),1);
-    Vj=spaceV(:,jj); %j-th column of V
+    columnVj=spaceV(:,jj); %j-th column of V
     spaceV=spaceV(:,[1:jj-1 jj+1:end]);
     
     %Update matrix V by removing Vj component from the space
-    spaceV=spaceV-Vj.*spaceV(indexDPP(ii),:)/Vj(indexDPP(ii));
+    spaceV=spaceV-columnVj.*spaceV(indexDPP(ii),:)/columnVj(indexDPP(ii));
     
     %Orthonormalize using Householder method
     [spaceV,~]=qr(spaceV,0);
@@ -89,11 +93,10 @@ indexDPP=sort(indexDPP); %sort index in ascending order
 %END - Sampling/simulating DPP - END
 
 %%% START -- Plotting -- START %%%
-figure;
+figure;hold on;
 markerSizeNumb=80; %marker size of markers colors
 vectorColor=rand(1,3).^(1); %random vector for colors of 
-plot(xx,yy,'ko','MarkerSize',markerSizeNumb/6);
-hold on;
+plot(xx,yy,'ko','MarkerSize',markerSizeNumb/6);%Poisson points
 plot(xx(indexDPP),yy(indexDPP),'.','MarkerSize',markerSizeNumb/3,'color',vectorColor);
 grid;
 axis square;set(gca,'YTick',[]); set(gca,'XTick',[]);

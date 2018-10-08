@@ -22,7 +22,7 @@ clearvars; clc;
 lambda=50; %intensity (ie mean density) of the Poisson process
 
 %choose kernel
-choiceKernel=2; %1 for Gaussian (ie squared exponetial );2 for Cauchy
+choiceKernel=1; %1 for Gaussian (ie squared exponetial );2 for Cauchy
 sigma=1;% parameter for Gaussian and Cauchy kernel
 alpha=1;% parameter for Cauchy kernel
 
@@ -41,7 +41,8 @@ yy=xDelta*(rand(numbPoints,1))+yMin;%y coordinates of Poisson points
 
 %%% START -- CREATE L matrix -- START %%%
 %all squared distances of x/y difference pairs
-xxDiff=bsxfun(@minus,xx,xx'); yyDiff=bsxfun(@minus,yy,yy');
+xxDiff=bsxfun(@minus,xx,xx'); 
+yyDiff=bsxfun(@minus,yy,yy');
 rrDiffSquared=(xxDiff.^2+yyDiff.^2);
 if choiceKernel==1
     %%Gaussian/squared exponential kernel
@@ -75,16 +76,17 @@ for ii=numbPointsDPP:-1:1
     Prob_i=sum(spaceV.^2,2); %sum across rows
     Prob_i=Prob_i/sum(Prob_i); %normalize
     
-    %Choose a point (from 1 to sizeL) using (prob mass function) Prob_i
-    indexDPP(ii)=find(rand(1)<=cumsum(Prob_i),1);
+    %Choose a point (from 1 to numbPoints) using (prob mass function) Prob_i
+    indexCurrent=find(rand(1)<=cumsum(Prob_i),1);
+    indexDPP(ii)=indexCurrent;
     
     %Choose a vector to remove
-    jj=find(spaceV(indexDPP(ii),:),1);
+    jj=find(spaceV(indexCurrent,:),1);
     columnVj=spaceV(:,jj); %j-th column of V
     spaceV=spaceV(:,[1:jj-1 jj+1:end]);
     
     %Update matrix V by removing Vj component from the space
-    spaceV=spaceV-columnVj.*spaceV(indexDPP(ii),:)/columnVj(indexDPP(ii));
+    spaceV=spaceV-columnVj.*spaceV(indexCurrent,:)/columnVj(indexCurrent);
     
     %Orthonormalize using Householder method
     [spaceV,~]=qr(spaceV,0);

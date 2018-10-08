@@ -2,9 +2,10 @@
 % This function calculates the L matrix for a Palm distribution
 % conditioned on points existing at locations of the statespace indexed by 
 % indexPalm. The method is discussed in the paper by  Blaszczyszyn and 
-% Keeler, which is based on based on Proposition 1.2 in the paper by 
-% Borodin and Rains[1], but an equivalent result appears in the two paper 
-% by Shirai and Takahashi[1]; % see Theorem 6.5 and Corolloary 6.6 in [2].
+% Keeler (in Section B of the appendix), which is based on Proposition 1.2
+% in the paper by Borodin and Rains[1], but an equivalent result appears 
+% in the paper by Shirai and Takahashi[3]; see Theorem 6.5 and 
+% Corolloary 6.6 in [3].
 %
 % INPUTS:
 % L = A square L(-matrix-)kernel, which must be (semi-)positive-definite. 
@@ -35,7 +36,7 @@ identityTemp=eye(sizeL); %identity matrix
 identityTemp(indexPalm,indexPalm)=0;%some ones set to zero
 invLBoro=eye(sizeL)/(identityTemp+L); 
 identityTemp=eye(length(indexRemain));
-%Borodin and Rains construction
-LPalm=identityTemp/(invLBoro(indexRemain,indexRemain))-identityTemp;
+%Borodin and Rains construction -- see equation (24) in [1]
+LPalm=identityTemp/(invLBoro(indexRemain,indexRemain))-identityTemp; 
 end
 

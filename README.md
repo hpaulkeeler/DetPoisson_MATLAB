@@ -8,7 +8,7 @@ Most of the remaining MATLAB files were used to obtain the results in the paper 
 
 To reproduce the results in the paper by Blaszczyszyn and Keeler[1], first run SubsetGenerate.m, then SubsetDetPoissonFit.m, and finally SubsetDetPoissonGenerate.m. The first two files will create .mat files locally for storing variables and data. 
 
-To reproduce the exact same results in the paper[2], set the random seed to one in the files SubsetGenerate.m and SubsetDetPoissonGenerate.m. That is, in these two files remove the comment from the line that reads:
+To reproduce the exact same results in the paper[1], set the random seed to one in the files SubsetGenerate.m and SubsetDetPoissonGenerate.m. That is, in these two files remove the comment from the line that reads:
 
 %seedRand=1; rng(seedRand) 
 

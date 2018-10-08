@@ -1,14 +1,18 @@
 # DetPoisson_MATLAB
 
-A collection of MATLAB m. files used for the results in the paper  by Blaszczyszyn and Keeler[1]. In particular, they create and fit determinantally-thinned Poisson point process to dependently-thinned point processes such as Matern hard-core point processes; for details see[1]. The fitting method is based on that of Kulesza and Taskar[2].
+A collection of MATLAB m. files used for the results in the paper  by Blaszczyszyn and Keeler[1]. In particular, they create and fit determinantally-thinned Poisson point process to dependently-thinned Poisson point processes such as Matern hard-core point processes; for details see[1]. The fitting method is based on that of Kulesza and Taskar[2].
+
+A determinantally-thinned (Poisson) point process is essentially a discrete determinantal point process whose underlying state space is a single realization of a (Poisson) point process defined on some (bounded) continuous space. 
 
 Run the file DemoDetPoisson.m for a demonstration of a simulating a determinantally-thinned Poisson point process.
 
 To reproduce the results in the paper by Blaszczyszyn and Keeler[1], first run SubsetGenerate.m, then SubsetDetPoissonFit.m, and finally SubsetDetPoissonGenerate.m. The first two files will create .mat files locally for storing variables and data. 
 
-To reproduce the exact same results in the paper[2], set the random seed to one (ie add the line:rng(1)) in the files SubsetGenerate.m and SubsetDetPoissonFit.m. 
+To reproduce the exact same results in the paper[2], set the random seed to one in the files SubsetGenerate.m and SubsetDetPoissonGenerate.m. That is, in these two files remove the comment from the line that reads:
 
-See comments in invidual .m files for more information. 
+%seedRand=1; rng(seedRand) 
+
+See comments in individual.m files for more information. 
 
 Author: H.P. Keeler, Inria/ENS, Paris, and University of Melbourne,
 Melbourne, 2018.

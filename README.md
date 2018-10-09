@@ -2,7 +2,7 @@
 
 A determinantally-thinned (Poisson) point process is essentially a discrete determinantal point process whose underlying state space is a single realization of a (Poisson) point process defined on some (bounded) continuous space. 
 
-Run the file DemoDetPoisson.m for a demonstration of simulating a determinantally-thinned Poisson point process. I what wrote this code in R and in Python, which both have a very similar structure; see  
+Run the file DemoDetPoisson.m for a demonstration of simulating a determinantally-thinned Poisson point process. I also wrote this code in R and in Python, which both have a very similar structure; see  
 
 https://github.com/hpaulkeeler/DetPoisson_R 
 

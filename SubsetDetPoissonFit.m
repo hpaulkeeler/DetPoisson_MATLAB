@@ -32,7 +32,7 @@ load('Subset.mat');
 T=100;%Number of training/learning samples
 options=optimset('Display','iter'); %options for fminsearch
 
-%%%START -- Model fitting parameters -- START%%%
+%%%START -- Model fitting parameters -- START
 %The parameters can be changed, but these were observed to work well.
 if any(choiceModel==1:2)
     %Fitting parameters for Matern hard-core (I/II) point process
@@ -51,7 +51,7 @@ else
     sigma=0;%sigma for Gaussian or Cauchy kernel 
     %Sigma value is ignored if booleOptSigma=true
 end
-%%%END -- Model fitting parameters -- END%%%
+%%%END -- Model fitting parameters -- END
 
 %Probability of a Poisson realization with two few points
 probLessM=sum(poisspdf(0:N,lambda));
@@ -88,6 +88,8 @@ thetaMax
 choiceModelFitted=choiceModel;
 save('SubsetFitParam.mat','thetaMax','T','sigma','N','M', ...
     'choiceModelFitted','booleOptSigma','choiceKernel');
+
+%Function definitions for log-likelihood.
 
 function logLikelihood=funLikelihood_data(T,ppStructPoisson, ...
     indexCellSub,choiceKernel,lambda,sigma,theta,booleOptSigma,N,M)

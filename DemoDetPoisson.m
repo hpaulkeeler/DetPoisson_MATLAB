@@ -68,9 +68,10 @@ indexEigen = find(rand(length(eigenValuesK),1) <= eigenValuesK);
 %number of points in the DPP realization
 numbPointsDPP=length(indexEigen);
 %retrieve eigenvectors corresponding to successful Bernoulli trials
-spaceV = eigenVectorsK(:,indexEigen);
-
+spaceV = eigenVectorsK(:,indexEigen); %subspace V 
 indexDPP = zeros(numbPointsDPP,1); %index for final DPP configuration
+
+%Loop through for all points
 for ii=numbPointsDPP:-1:1
     %Compute probabilities for each point i
     Prob_i=sum(spaceV.^2,2); %sum across rows
@@ -98,7 +99,9 @@ indexDPP=sort(indexDPP); %sort index in ascending order
 figure;hold on;
 markerSizeNumb=80; %marker size of markers colors
 vectorColor=rand(1,3).^(1); %random vector for colors of 
-plot(xx,yy,'ko','MarkerSize',markerSizeNumb/6);%Poisson points
+%Plot Poisson point process
+plot(xx,yy,'ko','MarkerSize',markerSizeNumb/6);
+%Plot determinantally-thinned Poisson point process
 plot(xx(indexDPP),yy(indexDPP),'.','MarkerSize',markerSizeNumb/3,'color',vectorColor);
 grid;
 axis square;set(gca,'YTick',[]); set(gca,'XTick',[]);

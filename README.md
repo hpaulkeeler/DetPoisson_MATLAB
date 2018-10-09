@@ -12,7 +12,7 @@ To reproduce the exact same results in the paper[1], set the random seed to one 
 
 %seedRand=1; rng(seedRand) 
 
-See comments in individual.m files for more information. 
+See comments in the individual MATLAB .m files for more information. 
 
 Author: H.P. Keeler, Inria/ENS, Paris, and University of Melbourne,
 Melbourne, 2018.
@@ -20,4 +20,5 @@ Melbourne, 2018.
 References:
 [1] Blaszczyszyn and Keeler, Determinantal thinning of point processes
 with network learning applications, 2018.
+
 [2] Kulesza and Taskar, "Determinantal point processes for machine learning",Now Publisers, 2012

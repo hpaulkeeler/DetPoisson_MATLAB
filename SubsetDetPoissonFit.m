@@ -68,8 +68,6 @@ end
 %Deterministic (ie gradient) optimization method
 if booleOptSigma
     thetaGuess=ones(N+M+2,1); %Take initial guess for sigma values
-%    funMax_theta=@(theta)funLikelihood_data(T,ppStructPoisson,...
- %       indexCellSub,choiceKernel,lambda,sigma,theta,booleOptSigma,N,M);
 else
     thetaGuess=ones(N+M+1,1); %Take initial guess for theta values
 end
@@ -78,7 +76,7 @@ end
         indexCellSub,choiceKernel,lambda,sigma,theta,booleOptSigma,N,M);
 
 funMin=@(theta)(-1*funMax_theta(theta)); %define function to be minimized
-thetaMax=fminsearch(funMin,thetaGuess,options);
+thetaMax=fminunc(funMin,thetaGuess,options); %minimize function 
 
 if booleOptSigma
     sigma=thetaMax(end); %retrive sigma values from theta
@@ -114,4 +112,3 @@ for tt=1:T
 end
 logLikelihood=sum(logLikelihoodVector);
 end
-dex_DPP);

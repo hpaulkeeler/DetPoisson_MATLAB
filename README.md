@@ -4,6 +4,8 @@ A determinantally-thinned (Poisson) point process is essentially a discrete dete
 
 https://arxiv.org/abs/1810.08672
 
+An obvious question is whether a determinantally-thinned Poisson point process is *also* a determinantal point process? The answer, we believe, is no, but it's from obvious. 
+
 Run the file DemoDetPoisson.m for a demonstration of simulating a determinantally-thinned Poisson point process. I also wrote this code in R and in Python, which both have a very similar structure; see  
 
 https://github.com/hpaulkeeler/DetPoisson_R 

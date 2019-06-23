@@ -4,7 +4,7 @@
 % of the underlying Poisson realizations. The results are stored locally in
 % the file Subset.mat. It also plots a single realization.
 %
-% The two of the points processes are Matern I/II hard-core point
+% The two of the point processes are Matern I/II hard-core point
 % processes. The other is a point process, which we call the triangle point
 % process. All three are constructed by dependently thinning a homogeneous 
 % Poisson point process.
@@ -175,7 +175,7 @@ for jj=1:numbSim
             %Matern I
             keepBooleI=~(removeBooleI);
             xxMaternI=xx(keepBooleI);yyMaternI=yy(keepBooleI);
-            indexCellSub{jj}=find(keepBooleI); %Matern I
+            indexCellSub{jj}=find(keepBooleI); %subset index for Matern I
             pointCountsI(jj)=numel(xxMaternI);
             xxCellSub{jj}=xxMaternI;
             yyCellSub{jj}=yyMaternI;
@@ -183,7 +183,7 @@ for jj=1:numbSim
         else
             %Matern II
             xxMaternII=xx(keepBooleII);yyMaternII=yy(keepBooleII);
-            indexCellSub{jj}=find(keepBooleII); %Matern I
+            indexCellSub{jj}=find(keepBooleII); %subset index for Matern II
             pointCountsII(jj)=numel(xxMaternII);
             xxCellSub{jj}=xxMaternII;
             yyCellSub{jj}=yyMaternII;
@@ -213,7 +213,7 @@ for jj=1:numbSim
         %END -- thinning points based on triangular perimeter -- END
         
         %index of points
-        indexCellSub{jj}=find(keepBooleTri); %Matern I
+        indexCellSub{jj}=find(keepBooleTri); %subset index for triangular
         pointCountsTri(jj)=numel(xxTri);
         xxCellSub{jj}=xxTri;
         yyCellSub{jj}=yyTri;

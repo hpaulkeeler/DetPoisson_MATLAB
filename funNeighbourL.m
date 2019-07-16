@@ -1,36 +1,36 @@
 % function L=funNeighbourL(xx,yy,lambda,choiceKernel,sigma,theta,N,M)
-% This function file creates an L(-ensemble-)matrix, as detailed in the 
-% paper by Blaszczyszyn and Keeler[1](Section IV). 
+% This function file creates an L(-ensemble-)matrix, as detailed in the
+% paper by Blaszczyszyn and Keeler[1](Section IV).
 %
-% The quality features or covariates (q_x in the above paper) are based on 
+% The quality features or covariates (q_x in the above paper) are based on
 % the nearest neighbour distances. The similiarirty matrix (S in the paper)
-% which creates replusion among the points, can be formed from either 
-% Gaussian or Cauchy kernel function. 
+% which creates replusion among the points, can be formed from either
+% Gaussian or Cauchy kernel function.
 %
 % INPUTS:
 % xx and yy are the x and y values of the underlying discrete state space,
-% which is usually a realization of a point process on a bounded continuous 
+% which is usually a realization of a point process on a bounded continuous
 % 2-D space such as a square or a disk.
 %
 % lambda is the point intensity/density (ie average number of points per
 % unit area) of the point process, which is used to rescale the distances.
 %
 % choiceKernel is a variable that takes value 1 (for Gaussian) or 2 (for
-% Cauchy) to select the kernel function. 
+% Cauchy) to select the kernel function.
 %
 % sigma is a parameter of kernel function.
 %
 % theta is a fitting parameters for the quality features/covariates.
 %
-% N is the number of neighbouring points. 
+% N is the number of neighbouring points.
 %
 % M is the number of distances between neighbour points. M is optional, but
 % when used, M must be equal to zero or N-1.
 %
-% OUTPUTS: 
-% An L-ensemble kernel matrix for a determinantal point process on a 
+% OUTPUTS:
+% An L-ensemble kernel matrix for a determinantal point process on a
 % discrete space; see [1] for details.
-% 
+%
 % Author: H.P. Keeler, Inria/ENS, Paris, and University of Melbourne,
 % Melbourne, 2018.
 %
@@ -45,9 +45,10 @@ if exist('M','var')
         error('M must be equal to N-1 or zero.');
     end
 end
+%Convert any matrices into vectors and rescale
 theta=theta(:); %theta needs to be columm vector
 xx=xx(:); yy=yy(:); %xx/yy need to be column vectors
-meanD=1/sqrt(lambda); %rescale constant
+meanD=1/sqrt(lambda); %rescaling constant
 xx=xx/meanD;yy=yy/meanD; %rescale distances
 
 alpha=1; %an additional parameter for the Cauchy kernel
@@ -60,32 +61,55 @@ sizeL=length(xx); %width/height of L (ie cardinality of state space)
 thetaFeature=theta(1)*ones(sizeL,1);
 if N>0
     %1st to N th terms
-    booleMatrix=logical(ones(sizeL)-eye(sizeL)); %removes distances to self
-    indexMatrix=repmat((1:sizeL),sizeL,1);
+    booleMatrix=logical(ones(sizeL)-eye(sizeL));%removes distances to self
+    rowMatrix=repmat((1:sizeL),sizeL,1);
     %find every pair combination
-    xxMatrix=repmat(xx,1,sizeL-1);yyMatrix=repmat(yy,1,sizeL-1);
-    indexTemp=flipud(reshape(indexMatrix(booleMatrix),sizeL,sizeL-1));
+    xxMatrix=repmat(xx,1,sizeL-1);
+    yyMatrix=repmat(yy,1,sizeL-1);
+    
+    %find rows for accessing x/y values
+    rowTemp=flipud(reshape(rowMatrix(booleMatrix),sizeL,sizeL-1));
+    %access x/y values and reshape vectors
+    xxTemp=xxMatrix(rowTemp);
+    yyTemp=yyMatrix(rowTemp);
+    
+    %differences in distances for all pairs
+    xxNearDiff=xxMatrix-xxTemp;yyNearDiff=yyMatrix-yyTemp;
     %calculate nearest distance for all pairs
-    [distNear,indexNear]=sort(sqrt((xxMatrix-xxMatrix(indexTemp)).^2 ...
-    +(yyMatrix-yyMatrix(indexTemp)).^2),2);    
+    distNearTemp=hypot(xxNearDiff,yyNearDiff);
+    
+    %sort distances
+    [distNear,indexNear]=sort(distNearTemp,2);
+    
+    %replicate parameter vector
     thetaMatrix=repmat(theta(2:end),1,sizeL);
-    thetaFeature=thetaFeature ...
-        +sum((thetaMatrix(1:N,:)').*distNear(:,1:N),2);
+    %dot product of parameters and features
+    theta_distNear=(thetaMatrix(1:N,:)').*distNear(:,1:N);
+    %add contribution fromm parameters and features
+    thetaFeature=thetaFeature+sum(theta_distNear,2);
     
     %Run for distances between nearest neighbours
     %N+1 to M th terms
     if exist('M','var')
         %find indices of nearest neighbours
-        indexBetween=indexTemp(sub2ind([sizeL,sizeL-1], ...
-            repmat((1:sizeL)',1,sizeL-1),indexNear));
+        indexBetweenTemp=sub2ind([sizeL,sizeL-1], ...
+            repmat((1:sizeL)',1,sizeL-1),indexNear);
+        rowBetween=rowTemp(indexBetweenTemp);
+        
+        %access x/y values and reshape vectors
+        xxTemp=xxMatrix(rowBetween);
+        yyTemp=yyMatrix(rowBetween);
+        
+        %differences in distances for all pairs
+        xxNearDiff=xxTemp(:,1:M)-xxTemp(:,2:M+1);
+        yyNearDiff=yyTemp(:,1:M)-yyTemp(:,2:M+1);
         %distance between nearest neighbours neighbours
-        distBetween=sqrt((xxMatrix(indexBetween(:,1:M)) ...
-            -xxMatrix(indexBetween(:,2:M+1))).^2 ...
-            +(yyMatrix(indexBetween(:,1:M)) ...
-            -yyMatrix(indexBetween(:,2:M+1))).^2);
-        %add contribution
-        thetaFeature=thetaFeature ...
-            +sum((thetaMatrix(N+1:N+M,:)').*distBetween,2);
+        distBetween=hypot(xxNearDiff,yyNearDiff);
+        
+        %dot product of parameters and features
+        theta_distBetween=(thetaMatrix(N+1:N+M,:)').*distBetween;
+        %add contribution from parameters and features
+        thetaFeature=thetaFeature+sum(theta_distBetween,2);
     end
     
 end
@@ -99,14 +123,14 @@ if sigma~=0
     rrDiffSquared=(xxDiff.^2+yyDiff.^2);
     if choiceKernel==1
         %%Gaussian kernel
-        SMatrix=(1./1)*exp(-(rrDiffSquared)/sigma^2);
+        SMatrix=exp(-(rrDiffSquared)/sigma^2);
     else
         
         %%Cauchy kernel
         SMatrix=1./(1+rrDiffSquared/sigma^2).^(alpha+1/2);
     end
 else
-    SMatrix=eye(sizeL);    
+    SMatrix=eye(sizeL);
 end
 %END - Create similarity matrix S with Gaussian kernel
 
@@ -116,60 +140,3 @@ L=(qMatrix').*SMatrix.*qMatrix;
 %END Create L matrix
 
 end
-
-
-
-% %%% CODE GRAVEYARD -- this code works, but it is slower %%%%
-%
-%
-% %START -- Create q vector
-% %%input has to be column vectors for knnsearch
-% indexNeighborAll=knnsearch([xx,yy],[xx,yy],'K',(N+1));
-% thetaFeature=ones(sizeL,1);
-% for ii=1:sizeL
-%     indexNearTemp=indexNeighborAll(ii,:); %nearest neighbour index
-%     xxTemp=xx(indexNearTemp);yyTemp=yy(indexNearTemp);
-%     distNearTemp=sqrt((xx(ii)-xxTemp(2:end)).^2+(yy(ii)-yyTemp(2:end)).^2);
-%
-%     thetaFeature(ii)=(theta(1:N)'*distNearTemp);
-%
-%     if exist('M','var')&& (M==N-1)&&(M>0)
-%             distBetweenTemp=sqrt((xxTemp(2:M+1)-xxTemp(3:M+2)).^2 ...
-%                 +(yyTemp(2:M+1)-yyTemp(3:M+2)).^2);
-%             thetaFeature(ii)=thetaFeature(ii) ...
-%                 +(theta(N+1:end)'*distBetweenTemp);
-%     end
-% end
-% qVector=exp(thetaFeature);
-%
-%END -- Create q vector
-
-% %START - Create S matrix with Gaussian kernel
-% SMatrix=zeros(sizeL,sizeL);
-% for ii=1:sizeL
-%     xxDiff1=xx-xx(ii);
-%     yyDiff1=yy-yy(ii);
-%     xxDiff=xxDiff1; yyDiff=yyDiff1;
-%     dd=sqrt((xxDiff).^2+(yyDiff).^2);
-%     SMatrix(:,ii)=exp(-(dd.^2/sigma^2)); %Gaussian kernel
-% end
-% L=(qMatrix').*SMatrix.*qMatrix;
-
-%END - Create S matrix
-
-%Old more complicated Bessel kernel
-
-% LBessel=rho*besselj(constBessel,zDiffScaled)./(zDiffScaled).^((nu+2)/2);
-% %need to rescale to ensure that diagonal entries are ones.
-% LBesel=(2^constBessel)*gamma(constBessel+1)*LBessel;
-% LBesel(1:1+size(LBesel,1):end)=rho; %remove the nan from zero division
-
-%
-% elseif
-%     rrDiff=sqrt(rrDiffSquared);
-%     %%Bessel kernel
-%     rho=sigma;
-%     %Bessel (simplified) kernel
-%     SMatrix=sqrt(rho)*besselj(1,2*sqrt(pi*rho)*rrDiff)./sqrt(pi*rrDiff);
-%     %need to rescale to ensure that diagonal entries are ones.
-%     SMatrix(1:1+size(SMatrix,1):end)=sqrt(rho); %remove the nan from zero division

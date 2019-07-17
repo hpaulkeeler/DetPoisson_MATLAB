@@ -56,7 +56,7 @@ funDistSquared=@(x,y,u,v)((x-u).^2+(y-v).^2);
 
 n=(size(ppStructPoisson,1));%total number of training/learning samples
 if (numbSim+T>n)
-    error('Need to create more realziations with SubsetGenerate.m');
+    error('Need to create more realizations with SubsetGenerate.m');
 else
     %Look at unused realizations (ie the ones not used for fitting)
     %select a random subset of unused realizations

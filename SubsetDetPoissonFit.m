@@ -98,7 +98,7 @@ if booleOptSigma
     sigma=theta(end);
     theta=theta(1:end-1);
 end
-%initiate vector
+%initialize  vector
 logLikelihoodVector=zeros(T,1);
 
 %Loop through all training/learning samples

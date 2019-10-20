@@ -76,7 +76,7 @@ else %rectangle
         windowSample(4)-windowSample(3));
 end
 
-%Initiate variables for collecting statistics
+%initialize  variables for collecting statistics
 meanNumbDPPCond=zeros(numbSim,1);
 numbSub=zeros(numbSim,1);
 numbDPP=zeros(numbSim,1);

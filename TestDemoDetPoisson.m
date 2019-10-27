@@ -69,7 +69,7 @@ end
 
 %run simulations with tests
 probX_i_Emp=zeros(numbPoints,1); %initialize variables
-indexTest=1:2; %choose a subset of [0 numbPoints-1]
+indexTest=1:2; %choose a subset of [1 numbPoints]
 probTestEmp=0; %initialize variables
 %loop through for each simulation
 for ss=1:numbSim

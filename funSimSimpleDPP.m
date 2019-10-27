@@ -1,4 +1,4 @@
-% function indexConfig=funSimSimpleDPP(eigenVectorsL,eigenValuesL)
+% function indexDPP=funSimSimpleDPP(eigenVectorsL,eigenValuesL)
 % This function simulates a determinantal point process (DPP) provided a
 % L matrix. It was used to produce the results in the paper by Blaszczyszyn 
 % and Keeler[1].

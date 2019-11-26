@@ -1,5 +1,5 @@
 % Randomly simulates a determinantally-thinned Poisson point process. It
-% then tests the empirical results against analytic ones. 
+% then tests the empirical results against analytic ones.
 %
 % A determinantally-thinned Poisson point process is essentially a discrete
 % determinantal point process whose underlying state space is a single
@@ -14,6 +14,9 @@
 % References:
 % [1] Blaszczyszyn and Keeler, Determinantal thinning of point processes
 % with network learning applications, 2018.
+%
+% Code available here:
+% Keeler, 2018, https://github.com/hpaulkeeler/DetPoisson_MATLAB
 
 close all;
 clearvars; clc;
@@ -21,8 +24,7 @@ clearvars; clc;
 %set random seed for reproducibility
 rng(1);
 
-numbSim=10^4; %number of simulations
-
+numbSim=10^5; %number of simulations
 
 %%%START -- Parameters -- %%%START
 %Poisson point process parameters
@@ -65,16 +67,16 @@ end
 
 %%% START Testing DPP simulation START %%%
 %Retrieve eigenvalues and eigenvectors
-[eigenVectorsL,eigenValuesL]=eig(L); %eigen decomposition
+[eigenVectL,eigenValL]=eig(L); %eigen decomposition
 
 %run simulations with tests
 probX_i_Emp=zeros(numbPoints,1); %initialize variables
-indexTest=1:2; %choose a subset of [1 numbPoints]
+indexTest=2:3; %choose a subset of [1 numbPoints]
 probTestEmp=0; %initialize variables
 %loop through for each simulation
 for ss=1:numbSim
     %run determinantal simuation
-    indexDPP=funSimSimpleDPP(eigenVectorsL,eigenValuesL); %returns index
+    indexDPP=funSimSimpleDPP(eigenVectL,eigenValL); %returns index
     probX_i_Emp(indexDPP)=probX_i_Emp(indexDPP)+1;
     
     countTemp=0; %initialize count

@@ -76,7 +76,7 @@ probTestEmp=0; %initialize variables
 %loop through for each simulation
 for ss=1:numbSim
     %run determinantal simuation
-    indexDPP=funSimSimpleDPP(eigenVectL,eigenValL); %returns index
+    indexDPP=funSimSimpleLDPP(eigenVectL,eigenValL); %returns index
     probX_i_Emp(indexDPP)=probX_i_Emp(indexDPP)+1;
     
     countTemp=0; %initialize count

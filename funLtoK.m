@@ -1,6 +1,9 @@
 % K=funLtoK(L)
 % The function funLtoK(L) converts a kernel L matrix into a (normalized)
 % kernel K matrix. The K matrix has to be semi-positive definite.
+%
+% Code available here:
+% Keeler, 2018, https://github.com/hpaulkeeler/DetPoisson_MATLAB
 
 % %TEST
 % B=[3, 2, 1; 4, 5,6; 9, 8,7];

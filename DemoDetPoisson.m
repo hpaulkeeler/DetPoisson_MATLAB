@@ -13,9 +13,15 @@
 % References:
 % [1] Blaszczyszyn and Keeler, Determinantal thinning of point processes
 % with network learning applications, 2018.
+%
+% Code available here:
+% Keeler, 2018, https://github.com/hpaulkeeler/DetPoisson_MATLAB
 
 close all;
 clearvars; clc;
+
+%set random seed for reproducibility
+rng(1);
 
 %%%START -- Parameters -- %%%START
 %Poisson point process parameters

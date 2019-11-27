@@ -22,6 +22,9 @@
 % with network learning applications, 2018.
 % [2] Kulesza and Taskar, "Determinantal point processes for machine
 % learning",Now Publisers, 2012
+%
+% Code available here:
+% Keeler, 2018, https://github.com/hpaulkeeler/DetPoisson_MATLAB
 
 close all
 clearvars;

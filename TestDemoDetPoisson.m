@@ -14,6 +14,9 @@
 % References:
 % [1] Blaszczyszyn and Keeler, Determinantal thinning of point processes
 % with network learning applications, 2018.
+%
+% Code available here:
+% Keeler, 2018, https://github.com/hpaulkeeler/DetPoisson_MATLAB
 
 close all;
 clearvars; clc;
@@ -65,7 +68,7 @@ end
 
 %%% START Testing DPP simulation START %%%
 %Retrieve eigenvalues and eigenvectors
-[eigenVectorsL,eigenValuesL]=eig(L); %eigen decomposition
+[eigenVectL,eigenValL]=eig(L); %eigen decomposition
 
 %run simulations with tests
 probX_i_Emp=zeros(numbPoints,1); %initialize variables
@@ -74,7 +77,7 @@ probTestEmp=0; %initialize variables
 %loop through for each simulation
 for ss=1:numbSim
     %run determinantal simuation
-    indexDPP=funSimSimpleDPP(eigenVectorsL,eigenValuesL); %returns index
+    indexDPP=funSimSimpleDPP(eigenVectL,eigenValL); %returns index
     probX_i_Emp(indexDPP)=probX_i_Emp(indexDPP)+1;
     
     countTemp=0; %initialize count

@@ -39,6 +39,9 @@
 % [3] Schneider and Weil, "Stochastic and integral geometry", Springer.
 % [4] Blaszczyszyn, Haenggi, Keeler, and Mukherjee, "Stochastic geometry
 % analysis of cellular networks", Cambridge University Press.
+%
+% Code available here:
+% Keeler, 2018, https://github.com/hpaulkeeler/DetPoisson_MATLAB
 
 close all; clearvars; clc;
 

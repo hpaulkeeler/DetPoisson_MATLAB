@@ -114,7 +114,7 @@ for ss=1:numbSim
     %average number of DPP points
     meanNumbDPPCond(ss)=mean(real(eigenValuesK))*numbRandPoisson;
     %Simulate next DPP generation
-    indexDPP=funSimSimpleDPP(eigenVectorsL,eigenValuesL);
+    indexDPP=funSimSimpleLDPP(eigenVectorsL,eigenValuesL);
     %assign points
     xxDPP=xxPoisson(indexDPP);yyDPP=yyPoisson(indexDPP);
     numbDPP(ss)=length(xxDPP);%number of points

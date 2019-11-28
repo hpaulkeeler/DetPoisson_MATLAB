@@ -6,12 +6,11 @@ https://arxiv.org/abs/1810.08672
 
 An obvious question is whether a determinantally-thinned Poisson point process is *also* a determinantal point process? The answer, we believe, is no, but it's from obvious. 
 
-Run the file DemoDetPoisson.m for a demonstration of simulating/sampling a determinantally-thinned Poisson point process. I also wrote this code in R and in Python, which both have a very similar structure; see  
+## Demonstration
 
-https://github.com/hpaulkeeler/DetPoisson_R 
+Run the file DemoDetPoisson.m for a demonstration of simulating/sampling a determinantally-thinned Poisson point process. 
 
-https://github.com/hpaulkeeler/DetPoisson_Python
-
+## Reproducing results from the paper
 Most of the remaining MATLAB files were used to obtain the results in the paper by Blaszczyszyn and Keeler[1]. In particular, they create and fit determinantally-thinned Poisson point process to dependently-thinned Poisson point processes such as Matern hard-core point processes; for details see[1]. The fitting (or supervised learning) method is based on that developed by Kulesza and Taskar[2].
 
 To reproduce the results in the paper by Blaszczyszyn and Keeler[1], first run SubsetGenerate.m, then SubsetDetPoissonFit.m, and finally SubsetDetPoissonGenerate.m. The first two files will create .mat files (stored locally), which contain variable values (that is, simulation/sampling and fitting results). 
@@ -25,7 +24,17 @@ See comments in the individual MATLAB .m files for more information.
 Author: H.P. Keeler, Inria/ENS, Paris, and University of Melbourne,
 Melbourne, 2018.
 
-References:
+## Other code repositories
+I also wrote some of this code (for example DemoDetPoisson,m and TestDetPoisson) in R and in Python, which have a very similar structure; see  
+
+https://github.com/hpaulkeeler/DetPoisson_Julia
+
+https://github.com/hpaulkeeler/DetPoisson_Python
+
+https://github.com/hpaulkeeler/DetPoisson_R 
+
+
+## References
 
 [1] Blaszczyszyn and Keeler, Determinantal thinning of point processes
 with network learning applications, 2018.

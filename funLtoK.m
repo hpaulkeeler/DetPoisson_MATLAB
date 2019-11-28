@@ -1,6 +1,6 @@
 % K=funLtoK(L)
-% The function funLtoK(L) converts a kernel L matrix into a (normalized)
-% kernel K matrix. The K matrix has to be semi-positive definite.
+% The function funLtoK(L) converts a (non-singular) kernel L matrix into  a (normalized) 
+% kernel K matrix. The L matrix has to be semi-positive definite.
 %
 % Code available here:
 % Keeler, 2018, https://github.com/hpaulkeeler/DetPoisson_MATLAB

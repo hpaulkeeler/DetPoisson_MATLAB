@@ -1,9 +1,9 @@
-% Randomly simulates a determinantally-thinned Poisson point process. 
+% Randomly simulates a determinantally-thinned Poisson point process.
 %
 % A determinantally-thinned Poisson point process is essentially a discrete
-% determinantal point process whose underlying state space is a single 
+% determinantal point process whose underlying state space is a single
 % realization of a Poisson
-% point process defined on some bounded continuous space. 
+% point process defined on some bounded continuous space.
 %
 % For more details, see the paper by Blaszczyszyn and Keeler[1].
 %
@@ -47,13 +47,13 @@ yy=xDelta*(rand(numbPoints,1))+yMin;%y coordinates of Poisson points
 
 %%% START -- CREATE L matrix -- START %%%
 %all squared distances of x/y difference pairs
-xxDiff=bsxfun(@minus,xx,xx'); 
+xxDiff=bsxfun(@minus,xx,xx');
 yyDiff=bsxfun(@minus,yy,yy');
 rrDiffSquared=(xxDiff.^2+yyDiff.^2);
 if choiceKernel==1
     %%Gaussian/squared exponential kernel
     L=lambda*exp(-(rrDiffSquared)/sigma^2);
-elseif choiceKernel==2    
+elseif choiceKernel==2
     %%Cauchy kernel
     L=lambda./(1+rrDiffSquared/sigma^2).^(alpha+1/2);
 else
@@ -74,7 +74,7 @@ indexEigen = find(rand(length(eigenValuesK),1) <= eigenValuesK);
 %number of points in the DPP realization
 numbPointsDPP=length(indexEigen);
 %retrieve eigenvectors corresponding to successful Bernoulli trials
-spaceV = eigenVectorsK(:,indexEigen); %subspace V 
+spaceV = eigenVectorsK(:,indexEigen); %subspace V
 indexDPP = zeros(numbPointsDPP,1); %index for final DPP configuration
 
 %Loop through for all points
@@ -82,19 +82,19 @@ for ii=numbPointsDPP:-1:1
     %Compute probabilities for each point i
     Prob_i=sum(spaceV.^2,2); %sum across rows
     Prob_i=Prob_i/sum(Prob_i); %normalize
-    
+
     %Choose a point (from 1 to numbPoints) using (prob mass function) Prob_i
     indexCurrent=find(rand(1)<=cumsum(Prob_i),1);
     indexDPP(ii)=indexCurrent;
-    
+
     %Choose a vector to remove
     jj=find(spaceV(indexCurrent,:),1);
     columnVj=spaceV(:,jj); %j-th column of V
     spaceV=spaceV(:,[1:jj-1 jj+1:end]);
-    
+
     %Update matrix V by removing Vj component from the space
     spaceV=spaceV-columnVj.*spaceV(indexCurrent,:)/columnVj(indexCurrent);
-    
+
     %Orthonormalize using Householder method
     [spaceV,~]=qr(spaceV,0);
 end
@@ -104,7 +104,7 @@ indexDPP=sort(indexDPP); %sort index in ascending order
 %%% START -- Plotting -- START %%%
 figure;hold on;
 markerSizeNumb=80; %marker size of markers colors
-vectorColor=rand(1,3).^(1); %random vector for colors of 
+vectorColor=rand(1,3).^(1); %random vector for colors of
 %Plot Poisson point process
 plot(xx,yy,'ko','MarkerSize',markerSizeNumb/6);
 %Plot determinantally-thinned Poisson point process

@@ -78,7 +78,7 @@ for ss=1:numbSim
     %run determinantal simuation
     indexDPP=funSimSimpleLDPP(eigenVectL,eigenValL); %returns index
     probX_i_Emp(indexDPP)=probX_i_Emp(indexDPP)+1;
-    
+
     countTemp=0; %initialize count
     for ii=1:length(indexTest)
         %check that each point of test subset appears

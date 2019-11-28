@@ -25,6 +25,9 @@
 % Pfaffian analogs", 2005
 % [3] Shirai and Takahashi, "Random point fields associated with certain 
 % Fredholm determinants I -- fermion, poisson and boson point", 2003.
+%
+% Code available here:
+% Keeler, 2018, https://github.com/hpaulkeeler/DetPoisson_MATLAB
 
 function LPalm=funLPalm(L,indexPalm)
 sizeL=size(L,1);

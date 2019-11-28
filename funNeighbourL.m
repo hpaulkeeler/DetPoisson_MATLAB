@@ -37,6 +37,9 @@
 % References:
 % [1] Blaszczyszyn and Keeler, Determinantal thinning of point processes
 % with network learning applications, 2018.
+%
+% Code available here:
+% Keeler, 2018, https://github.com/hpaulkeeler/DetPoisson_MATLAB
 
 function L=funNeighbourL(xx,yy,lambda,choiceKernel,sigma,theta,N,M)
 %Check that M is the right value if it exists

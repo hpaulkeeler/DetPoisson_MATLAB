@@ -21,8 +21,6 @@ To reproduce the exact same results in the paper[1], set the random seed to one 
 
 See comments in the individual MATLAB .m files for more information. 
 
-Author: H.P. Keeler, Inria/ENS, Paris, and University of Melbourne,
-Melbourne, 2018.
 
 ## Other code repositories
 I also wrote some of this code (for example DemoDetPoisson,m and TestDetPoisson) in R and in Python, which have a very similar structure; see  
@@ -33,6 +31,8 @@ https://github.com/hpaulkeeler/DetPoisson_Python
 
 https://github.com/hpaulkeeler/DetPoisson_R 
 
+## Author
+H.P. Keeler, Inria/ENS, Paris, and University of Melbourne, Melbourne, 2018.
 
 ## References
 

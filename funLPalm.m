@@ -32,7 +32,7 @@
 function LPalm=funLPalm(L,indexPalm)
 sizeL=size(L,1);
 if max(indexPalm)>sizeL
-    error('The index for the Palm points larger than matrix L.');
+    error('The index for the Palm points is larger than matrix L.');
 end
 indexRemain=setdiff(1:sizeL,indexPalm);%index of remaining points/locations
 identityTemp=eye(sizeL); %identity matrix

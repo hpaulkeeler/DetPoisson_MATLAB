@@ -31,6 +31,13 @@ https://github.com/hpaulkeeler/DetPoisson_Python
 
 https://github.com/hpaulkeeler/DetPoisson_R 
 
+## Matérn hard-core point processes
+For a very brief introduction on these point processes, see my post on simulating them:
+
+https://hpaulkeeler.com/simulating-matern-hard-core-point-processes/
+
+For more information, I recommend the references at the end of the post.
+
 ## Author
 H.P. Keeler, Inria/ENS, Paris, and University of Melbourne, Melbourne, 2018.
 
